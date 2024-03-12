@@ -27,4 +27,4 @@ jobs:
           push: true
           tags: |
             lauraflorina200178/tremend:latest
-            lauraflorina200178/tremend:latest:${{ github.sha }}
+            lauraflorina200178/tremend:latest
