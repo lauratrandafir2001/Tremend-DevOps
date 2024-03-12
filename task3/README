@@ -1,0 +1,29 @@
+#Setup for task3
+-copy the file company.sql in the root of the project
+- create a docker container with the following command
+docker run --name mysql-companyy -e MYSQL_ROOT_PASSWORD=password -d mysql:latest
+- create a database with the following command and import sql dump
+docker exec -i mysql-companyy mysql -uroot -ppassword company < company.sql
+- This command threw an error, so I tried with this instead, to be able to execute a MySQL client session in the container:
+docker exec -it mysql-companyy mysql -uroot -ppassword
+- I noticed that the company database was not created, so I created it with 
+CREATE DATABASE company;
+- I imported the sql dump with the following command:
+docker exec -i mysql-companyy mysql -uroot -ppassword -h localhost -P 3306 company < company.sql
+- This threw the error : "ERROR 1366 (HY000) at line 12: Incorrect integer value: 'Consulting' for column 'department' at row 41"
+- I fixed the error by changing the value of the department column from 'Consulting'
+
+- I created a new user with the following command:
+docker exec -i mysql-companyy mysql -uroot -ppassword -e "CREATE USER 'company_user'@'%' IDENTIFIED BY 'password';"
+- I granted all privileges to the user with the following command:
+docker exec -i mysql-companyy mysql -uroot -ppassword -e "GRANT ALL PRIVILEGES ON company.* TO 'company_user'@'%';"
+docker exec -i mysql-companyy mysql -uroot -ppassword -e "FLUSH PRIVILEGES;"
+-Find average salary for each department
+- I tried connecting to the database first with:
+docker exec -it mysql-companyy mysql -uroot -ppassword
+- I specified the database that I want to use
+USE company;
+- I ran the following query to find the average salary for each department:
+SELECT d.department_name, AVG(e.salary) AS average_salary FROM employees e JOIN departments d ON e.department = d.department_id GROUP BY e.department;
+ - To mount volumes I used 
+  docker run --name mysql-ccompany -e MYSQL_ROOT_PASSWORD=password -v mysql-data:/var/lib/mysql -d mysql:latest
