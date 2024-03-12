@@ -10,6 +10,8 @@ which returned the output: "Hello, World!"
 docker login
 docker push lauraflorina200178/tremend:latest
 docker pull lauraflorina200178/tremend:latest
+- I went to Secrets section on GIthub, and add DOCKER_USERNAME and DOCKER_PASSWORD
+ with my Docker Hub login credentials.
 - I created a new branch and a new file, docker-build-and-push.yaml where I specified the restrictions
 - I created a new workflow, using the template from the documentation
 - I pushed the changes to the new branch

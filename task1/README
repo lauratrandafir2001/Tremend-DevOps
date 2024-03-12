@@ -1,0 +1,12 @@
+#Task1
+- I had Docker and Docker desktop installed
+- I used this command to pull an ubuntu image
+docker pull ubuntu:latest
+- I used this command to run the ubuntu image
+docker run -it --name my_linux_container ubuntu:latest
+-I added a new user with
+useradd -m john
+- I copied the file from github to my container
+- I created the script step by step, running it each time to make sure it works
+- I corrected a small typo in the create_large_file.sh script that I corrected, "mv lage_file", otherwise the script
+would not work
